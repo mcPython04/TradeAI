@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"console.log\\(Object.keys\\(require\\('/Users/mxchen/TradeAI/node_modules/@clerk/nextjs/dist/index.js'\\)\\)\\)\")",
+      "Bash(npx tsc *)"
+    ]
+  }
+}
