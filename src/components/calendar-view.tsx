@@ -14,6 +14,11 @@ function pnlColor(pnl: number) {
   return pnl >= 0 ? "text-green-600" : "text-red-600";
 }
 
+function weekPnlColor(pnl: number) {
+  if (pnl === 0) return "text-gray-900";
+  return pnl > 0 ? "text-green-600" : "text-red-600";
+}
+
 function DayCell({
   cell,
   bucket,
@@ -41,12 +46,14 @@ function DayCell({
     <button
       type="button"
       onClick={() => onSelect(cell.date!)}
-      className={`min-h-24 rounded border p-2 text-left ${
-        isWin ? "bg-green-50 border-green-200" : "bg-red-50 border-red-200"
+      className={`min-h-24 rounded border p-2 text-left transition-colors ${
+        isWin
+          ? "bg-green-50 border-green-500 hover:bg-green-100"
+          : "bg-red-50 border-red-500 hover:bg-red-100"
       }`}
     >
       <div className="text-xs text-gray-500">{cell.dayOfMonth}</div>
-      <div className={`text-sm font-semibold ${pnlColor(bucket.pnl)}`}>
+      <div className="text-sm font-semibold text-gray-900">
         {formatCalendarPnl(bucket.pnl)}
       </div>
       <div className="text-xs text-gray-600">{formatTradeCount(bucket.tradeCount)}</div>
@@ -78,7 +85,7 @@ function WeekSummaryCell({
   return (
     <div className="min-h-24 rounded border bg-white p-2">
       <div className="text-xs font-medium text-gray-500">Week {weekNumber}</div>
-      <div className={`text-sm font-semibold ${pnlColor(pnl)}`}>
+      <div className={`text-sm font-semibold ${weekPnlColor(pnl)}`}>
         {formatCalendarPnl(pnl)}
       </div>
       <div className="text-xs text-gray-600">{formatTradeCount(tradeCount)}</div>
