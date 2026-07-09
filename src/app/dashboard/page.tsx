@@ -40,9 +40,10 @@ export default async function DashboardPage({
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="text-xl font-semibold">Dashboard</h1>
-
-      <DateRangeFilter />
+      <div className="flex items-center justify-between">
+        <h1 className="text-xl font-semibold">Dashboard</h1>
+        <DateRangeFilter />
+      </div>
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
         <StatCard
