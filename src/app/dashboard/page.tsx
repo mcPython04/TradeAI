@@ -1,6 +1,8 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import DateRangeFilter from "@/components/date-range-filter";
+import StatCardSettings from "@/components/stat-card-settings";
+import StatCardsRow from "@/components/stat-cards-row";
 import CalendarView from "@/components/calendar-view";
 import { buildMonthGrid, monthLabel, parseMonthParam } from "@/lib/calendar";
 import {
@@ -10,15 +12,6 @@ import {
   getTradesClosedInRange,
   tradePnl,
 } from "@/lib/trades";
-
-function StatCard({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded border bg-white p-4">
-      <div className="text-xs uppercase text-gray-500">{label}</div>
-      <div className="mt-1 text-2xl font-semibold">{value}</div>
-    </div>
-  );
-}
 
 export default async function DashboardPage({
   searchParams,
@@ -42,29 +35,13 @@ export default async function DashboardPage({
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold">Dashboard</h1>
-        <DateRangeFilter />
+        <div className="flex items-center gap-3">
+          <DateRangeFilter />
+          <StatCardSettings />
+        </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-        <StatCard
-          label="Total P&L"
-          value={`${stats.totalPnl >= 0 ? "+" : ""}${stats.totalPnl.toFixed(2)}`}
-        />
-        <StatCard
-          label="Win Rate"
-          value={`${(stats.winRate * 100).toFixed(0)}%`}
-        />
-        <StatCard label="Avg Win" value={stats.avgWin.toFixed(2)} />
-        <StatCard label="Avg Loss" value={stats.avgLoss.toFixed(2)} />
-        <StatCard
-          label="Profit Factor"
-          value={stats.profitFactor === null ? "—" : stats.profitFactor.toFixed(2)}
-        />
-        <StatCard
-          label="Win / Loss"
-          value={`${stats.winCount} / ${stats.lossCount}`}
-        />
-      </div>
+      <StatCardsRow stats={stats} />
 
       <CalendarView
         year={year}
