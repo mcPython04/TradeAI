@@ -11,7 +11,8 @@ import DayTradesModal from "./day-trades-modal";
 const WEEKDAY_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 function pnlColor(pnl: number) {
-  return pnl >= 0 ? "text-green-600" : "text-red-600";
+  if (pnl === 0) return "text-gray-900";
+  return pnl > 0 ? "text-green-600" : "text-red-600";
 }
 
 function weekPnlColor(pnl: number) {
@@ -123,12 +124,12 @@ export default function CalendarView({
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
+      <div className="grid grid-cols-8 items-center gap-2">
+        <div className="col-span-6 flex items-center gap-3">
           <button
             type="button"
             onClick={() => goToMonth(adjacentMonthParam(year, month, -1))}
-            className="rounded border px-3 py-1 text-sm"
+            className="rounded border px-3 py-1 text-sm transition-colors hover:bg-gray-100"
             aria-label="Previous month"
           >
             &larr;
@@ -137,7 +138,7 @@ export default function CalendarView({
           <button
             type="button"
             onClick={() => goToMonth(adjacentMonthParam(year, month, 1))}
-            className="rounded border px-3 py-1 text-sm"
+            className="rounded border px-3 py-1 text-sm transition-colors hover:bg-gray-100"
             aria-label="Next month"
           >
             &rarr;
@@ -145,13 +146,16 @@ export default function CalendarView({
           <button
             type="button"
             onClick={() => goToMonth(currentMonthParam())}
-            className="rounded border px-3 py-1 text-sm"
+            className="rounded border px-3 py-1 text-sm transition-colors hover:bg-gray-100"
           >
             Today
           </button>
         </div>
-        <div className={`text-lg font-semibold ${pnlColor(monthPnl)}`}>
-          {formatCalendarPnl(monthPnl)}
+        <div className="col-span-2 col-start-7 flex items-center justify-start gap-2">
+          <span className="text-sm text-gray-500">Monthly P&L:</span>
+          <span className={`text-lg font-semibold ${pnlColor(monthPnl)}`}>
+            {formatCalendarPnl(monthPnl)}
+          </span>
         </div>
       </div>
 
