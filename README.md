@@ -4,6 +4,10 @@ Log trades, track P&L, and filter your history by date range.
 
 Stack: Next.js (App Router) + Postgres + Drizzle ORM + Clerk auth + Tailwind + Recharts.
 
+## Demo
+
+<img width="1071" height="816" alt="Screenshot 2026-09-21 at 14 55 28" src="https://github.com/user-attachments/assets/ab51d671-8287-486b-b346-e8ca31efb8f4" />
+
 ## Setup
 
 1. **Install dependencies** (already done if you just scaffolded this)
